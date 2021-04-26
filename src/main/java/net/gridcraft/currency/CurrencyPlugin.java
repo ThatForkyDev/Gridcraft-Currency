@@ -12,8 +12,8 @@ public class CurrencyPlugin extends JavaPlugin {
     public void onEnable() {
         initialiseSQL();
 
-        new BalanceCommand(this);
-        new CurrencyCommand(this);
+        new BalanceCommand();
+        new CurrencyCommand();
 
         Bukkit.getPluginManager().registerEvents(new ConnectionListeners(), this);
     }

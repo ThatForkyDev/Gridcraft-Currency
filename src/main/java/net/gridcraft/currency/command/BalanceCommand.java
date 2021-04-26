@@ -4,15 +4,17 @@ import net.gridcraft.core.command.BaseCommand;
 import net.gridcraft.core.command.CommandDescription;
 import net.gridcraft.core.command.CommandName;
 import net.gridcraft.core.command.CommandPermission;
+import net.gridcraft.core.database.BaseDatabase;
 import net.gridcraft.core.utils.TextUtil;
-import net.gridcraft.currency.CurrencyPlugin;
 import net.gridcraft.currency.account.CurrencyAccount;
 import net.gridcraft.currency.account.CurrencyDAO;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import javax.swing.text.html.Option;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,7 +22,7 @@ import java.util.UUID;
 @CommandDescription("Check your balance")
 @CommandPermission("command.balance.use")
 public class BalanceCommand extends BaseCommand<CommandSender> {
-    public BalanceCommand(CurrencyPlugin plugin) {
+    public BalanceCommand() {
         super(BalanceCommand.class);
 
         registerForeign();
@@ -40,9 +42,24 @@ public class BalanceCommand extends BaseCommand<CommandSender> {
                     System.err.println("Account isn't present.");
                 }
             }
-            //SHOW OWN BALANCE
         } else {
-            //SHOW OTHER BALANCE
+            OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+
+            if (Objects.isNull(target)) {
+                commandSender.sendMessage(ChatColor.RED + "Invalid target.");
+                return;
+            }
+
+            UUID uid = target.getUniqueId();
+            Optional<CurrencyAccount> account = CurrencyAccount.getIfPresent(uid);
+            double balance;
+
+            if (account.isPresent())
+                balance = CurrencyDAO.getAccount(BaseDatabase.getInstance().getConnection(), uid).getBalance();
+            else
+                balance = CurrencyDAO.getAccount(BaseDatabase.getInstance().getConnection(), uid).getBalance();
+
+            commandSender.sendMessage(ChatColor.GREEN + "Balance of " + target.getName() + " is: $" + TextUtil.decimalFormat(balance));
         }
     }
 }

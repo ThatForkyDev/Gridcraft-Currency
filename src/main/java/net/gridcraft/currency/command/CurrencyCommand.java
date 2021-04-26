@@ -1,7 +1,6 @@
 package net.gridcraft.currency.command;
 
 import net.gridcraft.core.command.*;
-import net.gridcraft.currency.CurrencyPlugin;
 import net.gridcraft.currency.command.sub.CurrencyGiveCommand;
 import net.gridcraft.currency.command.sub.CurrencySetCommand;
 import net.gridcraft.currency.command.sub.CurrencyTakeCommand;
@@ -12,7 +11,7 @@ import org.bukkit.command.CommandSender;
 @CommandDescription("Base currency command")
 @CommandPermission("command.currency.use")
 public class CurrencyCommand extends BaseCommand<CommandSender> {
-    public CurrencyCommand(CurrencyPlugin plugin) {
+    public CurrencyCommand() {
         super(CurrencyCommand.class);
 
         registerForeign(

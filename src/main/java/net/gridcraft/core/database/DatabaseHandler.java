@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class DatabaseHandler implements Database {
     private static final String DEFAULT_MYSQL_DRIVER = "org.mariadb.jdbc.Driver";
