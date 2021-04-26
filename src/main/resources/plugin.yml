@@ -1,0 +1,3 @@
+name: Currency
+version: 1.0.0
+main: net.gridcraft.currency.CurrencyPlugin
