@@ -1,6 +1,11 @@
 package net.gridcraft.currency.command;
 
-import net.gridcraft.core.command.*;
+import net.gridcraft.core.command.BaseCommand;
+import net.gridcraft.core.command.CommandData;
+import net.gridcraft.core.command.CommandDescription;
+import net.gridcraft.core.command.CommandName;
+import net.gridcraft.core.command.CommandPermission;
+import net.gridcraft.core.command.ForeignCommand;
 import net.gridcraft.currency.command.sub.CurrencyGiveCommand;
 import net.gridcraft.currency.command.sub.CurrencySetCommand;
 import net.gridcraft.currency.command.sub.CurrencyTakeCommand;

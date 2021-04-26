@@ -9,9 +9,7 @@ public class TextUtil {
         try {
             double amount = Double.parseDouble(s);
 
-            if (checkNegative && amount < 0) return false;
-
-            return true;
+            return !(checkNegative && amount < 0);
         } catch (NumberFormatException e) {
             return false;
         }

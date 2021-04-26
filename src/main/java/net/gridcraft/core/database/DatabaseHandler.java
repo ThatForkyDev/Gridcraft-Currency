@@ -15,9 +15,6 @@ public class DatabaseHandler implements Database {
     private DatabaseCredentials dbCreds;
     private final HikariDataSource hikariSource = new HikariDataSource();
 
-    private ConfigSQL configSQL;
-
-
     protected int minIdle = 30;
     protected int maxPoolSize = 100;
     protected int connectionTimeoutMs = 120 * 1000;
@@ -66,18 +63,18 @@ public class DatabaseHandler implements Database {
     }
 
     public void init(File folder) {
-        this.configSQL = JsonConfig.load(folder, ConfigSQL.class, ConfigSQL::new);
+        ConfigSQL configSQL = JsonConfig.load(folder, ConfigSQL.class, ConfigSQL::new);
 
         DatabaseCredentials credentials = new DatabaseCredentials(
-                this.configSQL.getHost(),
-                this.configSQL.getPort(),
-                this.configSQL.getDatabaseName(),
-                this.configSQL.getUser(),
-                this.configSQL.getPassword()
+                configSQL.getHost(),
+                configSQL.getPort(),
+                configSQL.getDatabaseName(),
+                configSQL.getUser(),
+                configSQL.getPassword()
         );
 
-        this.minIdle = this.configSQL.getMinIdle() < 0 ? 1 : this.configSQL.getMinIdle();
-        this.maxPoolSize =  Math.max(this.configSQL.getMaxConnections(), 1);
+        this.minIdle = configSQL.getMinIdle() < 0 ? 1 : configSQL.getMinIdle();
+        this.maxPoolSize =  Math.max(configSQL.getMaxConnections(), 1);
         init(credentials);
     }
 
